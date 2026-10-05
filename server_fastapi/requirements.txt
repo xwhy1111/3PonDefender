@@ -1,0 +1,4 @@
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+argon2-cffi==23.1.0
+cryptography==44.0.2

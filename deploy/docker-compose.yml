@@ -1,0 +1,40 @@
+services:
+  threepon-server:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: threepon-defender-server
+    restart: unless-stopped
+    environment:
+      THREEPON_BIND: ${THREEPON_BIND:-0.0.0.0:8015}
+      THREEPON_DEV_MODE: ${THREEPON_DEV_MODE:-true}
+      THREEPON_STATE_PATH: ${THREEPON_STATE_PATH:-/srv/threepon/data/server-state.json}
+      THREEPON_POLICY_SIGNING_KEY: ${THREEPON_POLICY_SIGNING_KEY:-}
+      THREEPON_PUBLIC_BASE_URL: ${THREEPON_PUBLIC_BASE_URL:-http://192.168.6.235:8015}
+      THREEPON_UPDATE_VERSION_CODE: ${THREEPON_UPDATE_VERSION_CODE:-24}
+      THREEPON_UPDATE_VERSION_NAME: ${THREEPON_UPDATE_VERSION_NAME:-0.1.23}
+      THREEPON_UPDATE_APK_PATH: ${THREEPON_UPDATE_APK_PATH:-/srv/threepon/releases/threepon-defender.apk}
+      THREEPON_ANDROID_SIGNER_SHA256: ${THREEPON_ANDROID_SIGNER_SHA256:-f8637cc0a3624d9c6e0be485f3c28ece43f856186de7b5442bccc617dcaf3c1f}
+      THREEPON_UPDATE_MANDATORY: ${THREEPON_UPDATE_MANDATORY:-false}
+    expose:
+      - "8015"
+    volumes:
+      - ./releases:/srv/threepon/releases:ro
+      - threepon-admin-state:/srv/threepon/data
+
+  caddy:
+    image: caddy:2.9
+    restart: unless-stopped
+    depends_on:
+      - threepon-server
+    ports:
+      - "8015:8015"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  threepon-admin-state:
+  caddy-data:
+  caddy-config:

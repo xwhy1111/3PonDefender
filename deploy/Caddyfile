@@ -1,0 +1,4 @@
+:8015 {
+    encode zstd gzip
+    reverse_proxy http://threepon-server:8015
+}

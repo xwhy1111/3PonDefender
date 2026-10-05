@@ -1,0 +1,10 @@
+<resources>
+    <style name="Theme.ThreePonDefender" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#009881</item>
+        <item name="android:navigationBarColor">#F4F7F6</item>
+        <item name="android:statusBarColor">#F4F7F6</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>
+

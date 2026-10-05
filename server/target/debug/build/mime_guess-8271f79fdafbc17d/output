@@ -1,0 +1,1 @@
+cargo:rustc-env=MIME_TYPES_GENERATED_PATH=/Users/xiaowenhao/Documents/3PonDefender/server/target/debug/build/mime_guess-8271f79fdafbc17d/out/mime_types_generated.rs
